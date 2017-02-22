@@ -1,0 +1,30 @@
+---
+
+- name: Install required packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+    install_recommends: no
+  with_items: [ '{{ php_fpm_main_packages }}' ]
+
+- name: Install additional packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+    install_recommends: no
+  with_items: [ '{{ php_fpm_additional_packages }}' ]
+  notify:
+    - Restart php-fpm
+
+- name: Add pools
+  template:
+    src: etc/php/7.0/fpm/pool.d/pool.conf.j2
+    dest: "/etc/php/7.0/fpm/pool.d/{{ item.name }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: [ '{{ php_fpm_pools }}' ]
+  notify:
+    - Restart php-fpm
+
+- include: monit.yml 
