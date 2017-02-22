@@ -1,6 +1,6 @@
 # Ansible role PHP-fpm
 
-Version: 0.0.0
+Version: 0.0.1
 
 Supported OS: Ubuntu
 
