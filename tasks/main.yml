@@ -26,5 +26,3 @@
   with_items: [ '{{ php_fpm_pools }}' ]
   notify:
     - Restart php-fpm
-
-- include: monit.yml 
