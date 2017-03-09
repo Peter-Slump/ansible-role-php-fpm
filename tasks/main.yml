@@ -1,13 +1,15 @@
 ---
 
-- name: Install required packages
+- name: main | Install required packages
   apt:
     name: "{{ item }}"
     state: latest
     install_recommends: no
   with_items: [ '{{ php_fpm_main_packages }}' ]
+  tags:
+    - php-fpm
 
-- name: Install additional packages
+- name: main | Install additional packages
   apt:
     name: "{{ item }}"
     state: latest
@@ -15,8 +17,10 @@
   with_items: [ '{{ php_fpm_additional_packages }}' ]
   notify:
     - Restart php-fpm
+  tags:
+    - php-fpm
 
-- name: Add pools
+- name: main | Add pools
   template:
     src: etc/php/7.0/fpm/pool.d/pool.conf.j2
     dest: "/etc/php/7.0/fpm/pool.d/{{ item.name }}.conf"
@@ -26,3 +30,5 @@
   with_items: [ '{{ php_fpm_pools }}' ]
   notify:
     - Restart php-fpm
+  tags:
+    - php-fpm
