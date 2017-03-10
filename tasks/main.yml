@@ -20,6 +20,14 @@
   tags:
     - php-fpm
 
+- name: main | Enable service
+  service:
+    name: php7.0-fpm
+    state: started
+    enabled: yes
+  tags:
+    - php-fpm
+
 - name: main | Add pools
   template:
     src: etc/php/7.0/fpm/pool.d/pool.conf.j2
