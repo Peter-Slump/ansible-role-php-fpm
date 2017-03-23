@@ -28,6 +28,17 @@
   tags:
     - php-fpm
 
+- name: main | Change config
+  lineinfile:
+    dest: /etc/php/7.0/fpm/php.ini
+    regexp: '^{{ item.key }} ='
+    line: '{{ item.key }} = {{ item.value }}'
+  with_dict: "{{ php_fpm_php_ini_settings }}"
+  tags:
+    - php-fpm
+  notify:
+    - Restart php-fpm
+
 - name: main | Add pools
   template:
     src: etc/php/7.0/fpm/pool.d/pool.conf.j2

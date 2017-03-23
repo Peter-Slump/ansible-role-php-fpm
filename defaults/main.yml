@@ -5,6 +5,14 @@ php_fpm_additional_packages: []
 
 php_fpm_process_name: php7.0-fpm
 
+php_fpm_php_ini_settings:
+
+# Example php_ini_settings:
+# php_fpm_php_ini_settings:
+#   upload_max_filesize: 10G
+#   post_max_size: 10G
+
+
 php_fpm_pools: []
 
 # Example PHP-FPM pool, explanation of variables can be found
